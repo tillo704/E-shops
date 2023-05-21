@@ -1,0 +1,44 @@
+{% extends "base.html"%}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block tutle%}
+    E-shop - Home
+
+{% endblock tutle%}
+
+
+{% block content %}
+    <div class="container">
+        <div class="w-100 mt-4">
+            <h4 class="d-black">Recently Products</h4>
+            <div class="d-flex flex-wrap justify-content-between">
+                {% for i in products %}
+               
+                <div class="card border-0 shadow-sm d-inline-black m-1 mt-3" style="width:16.5rem;">
+                    {% if i.productimage_set.exists %}                  
+                    <img height="200" class="card-img-top" src="{{ i.productimage_set.all.first.image.url }}" alt="123">
+                    {% else %}
+                    <img height="200" class="card-img-top" src="" alt="">
+                    {% endif %}
+                    <dev class="card-body">
+                    <h6 class="align-center card-text">{{i.title}}</h6>
+                    <span class="center cart-text"><smal>{{i.price}}</small>$</span>                                                
+                    <div class="buttons d-flex flex-wrap justify-content-between ">                    
+                        <i class="bi bi-bookmark-fill"></i>
+                        <i class="fa fa-bookmark-o" style="font-size:36px"></i>
+                        <a href="#" class="btn btn-outline-primary">Details</a>
+           
+                        
+                       
+                    </div>
+                </div> 
+            </div>
+             {% endfor %}
+        </div>
+    </div>
+
+
+
+
+{% endblock content %}
