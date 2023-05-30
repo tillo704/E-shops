@@ -1,0 +1,24 @@
+
+{% extends "base.html"%}
+{% load crispy_forms_tags %}
+{% block title %}
+ Delete Product-{{product.title}}
+{% endblock title %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="col"></div>
+        <div class="col-md-6 offset-3 my-5">
+            <h2> Are you to delete - {{product.title}}</h2>
+            
+            <form method = "post" enctype="multipart/form-data">
+            
+
+                <button type = "submit" class="btn btn-primary">Submit</button>
+                <a class="btn btn-secondary" href="{% url 'products:detail' product.id %}"> Back Details</a>
+            </forma>
+        </div>
+        <div class="col"></div>
+    </div>
+{% endblock content %}

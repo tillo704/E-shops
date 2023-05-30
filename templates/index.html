@@ -2,20 +2,21 @@
 {% load static %}
 {% load django_bootstrap5 %}
 
-{% block tutle%}
+{% block title%}
     E-shop - Home
 
-{% endblock tutle%}
+{% endblock title%}
 
 
 {% block content %}
+    {% comment %} <h1 style="text-align: center; color: brown;">Online Shops</h1>
+
     <div class="container">
-        <div class="w-100 mt-4">
-            <h4 class="d-black">Recently Products</h4>
-            <div class="d-flex flex-wrap justify-content-between">
-                {% for i in products %}
-               
-                <div class="card border-0 shadow-sm d-inline-black m-1 mt-3" style="width:16.5rem;">
+        <h4 class="d-black">Recently Products</h4>
+        <div class="row">
+        {% for i in products %}
+            <div class="col-md-4 mx-2">
+                <div class="card  border border-0 shadow-sm d-inline m-1 mt-3" style="width: 30%;display: inline;">
                     {% if i.productimage_set.exists %}                  
                     <img height="200" class="card-img-top" src="{{ i.productimage_set.all.first.image.url }}" alt="123">
                     {% else %}
@@ -24,21 +25,52 @@
                     <dev class="card-body">
                     <h6 class="align-center card-text">{{i.title}}</h6>
                     <span class="center cart-text"><smal>{{i.price}}</small>$</span>                                                
-                    <div class="buttons d-flex flex-wrap justify-content-between ">                    
-                        <i class="bi bi-bookmark-fill"></i>
-                        <i class="fa fa-bookmark-o" style="font-size:36px"></i>
-                        <a href="#" class="btn btn-outline-primary">Details</a>
-           
+                    <div class="buttons d-flex flex-wrap justify-content-between ">    
+                        <a href="{% url 'users:addremovesaved' i.id%}" >&#9989; </a></i> 
+                        <i class="bi bi-bookmark-fill"><a href="{% url 'users:addremovesaved' i.id%}" ></a></i> </i>
+                                            
+                        <a href="{% url 'products:detail' i.id%}" class="btn btn-outline-primary">Details</a>
+
                         
-                       
+            
+                        
+                        
                     </div>
                 </div> 
             </div>
-             {% endfor %}
-        </div>
+        {% endfor %}
     </div>
+    </div> {% endcomment %}
 
-
-
+         <!-- Product Cart Start -->
+         <div class="container">
+            <div class=" w-100 mt-4">
+                <h4 class="d-block text-center text-primary" >Recently Products</h4>
+                <div class="d-flex flex-wrap justify-content-between">
+                    {% for i in products%}
+                    
+                    <!-- Product Cart Start -->
+                    <div class="card border border-0 shadow-sm d-inline-block m-1 mt-3" style="width: 16.5rem;" >
+                        {% if i.productimage_set.exists%}
+                        <img height="200" class=" card-img-top" src="{{i.productimage_set.all.first.image.url}}" alt="">
+                        {% else %}
+                        <img height="200" class=" card-img-top" src="images/14pro2.jfif" alt="">
+                        {% endif%}
+                        <div class="card-body text-center">
+                            <h6 class="align-center card-title">{{i.title}}</h6>
+                            <span class="center card-text"><small>{{i.price}}</small>$</span>
+                            <div class="buttons d-flex flex-wrap justify-content-between mx-4 mt-2 ">
+                                <i class="bi bi-boo1kmark-fill text-center mx-4 mt-3"><a href="{% url 'users:addremovesaved' i.id%}">&#9989; </a></i> 
+                                <a href="{% url 'products:detail' i.id%} " class="btn btn-outline-primary" >Details</a>
+                            </div>
+                        </div>
+                    </div>  
+                    <!-- Product Cart End -->
+                    {% endfor %}
+ 
+                </div>
+            </div>
+        </div>
+        <!-- Product Cart End -->
 
 {% endblock content %}

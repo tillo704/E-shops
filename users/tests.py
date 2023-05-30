@@ -22,3 +22,24 @@ class SignupTestCase(TestCase):
         self.assertEqual(user.first_name,'django')
         self.assertEqual(user.email,'django@gmail.com')
         self.assertTrue(user.check_password,'tillo123')
+        second_response = self.client.get("/users/profile/aadmin")
+        self.assertEqual(second_response.status_code, 301)
+
+
+        #login
+
+        self.client.login(username= 'aadmin',password="tillo123")
+
+        third_response = self.client.post(
+            reverse('users:update'),
+            data={
+                'username':'aadmin2',
+                'first_name':'django2',
+                'last_name':'django_p5',
+                'email':'django@gmail.com',
+                'phone_number':'+998748547964',
+                'tg_username':'username',
+                
+            }
+        )
+
